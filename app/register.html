@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Register</title>
+		<link type="text/css" href="assets/foundation/css/normalize.css" rel="stylesheet">
+		<link type="text/css" href="assets/foundation/css/foundation.css" rel="stylesheet">
+		<link type="text/css" href="css/style.css" rel="stylesheet">
+		<link type="text/css" href="css/register.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="top"><span class="header text_light">注册</span></div>
+		<div id="content">
+			<label>昵称 <small>必填，不超过24个字符</small></label>
+			<input id="nick" type="text" autofocus="autofocus">
+			<label>密码 <small>必须是6～16位，不能全数字</small></label>
+			<input id="psw" type="password">
+			<label>确认密码 <small>必须与密码一致</small></label>
+			<input id="psw_again" type="password">
+			<label>性别</label>
+			<select id="sex">
+				<option value="0">男</option>
+				<option value="1">女</option>
+			</select>
+			<label>生日 <small>必填</small></label>
+			<input id="birthday" type="date">
+			<div class="text-center">
+				<button id="submit" class="success">立即注册</button>
+			</div>
+		</div>
+		<span id="err" class="hide"></span>
+		<div id="overlay" class="hide">
+			<div class="alert-box info radius">
+				申请成功，您的帐号如下：
+				<span>
+					<span id="number"></span><br/>
+					<span id="login" class="button success small">立刻前往登录</span>
+				</span>
+			</div>
+		</div>
+		<div id="loading" class="hide"></div>
+		<script type="text/javascript" src="script/jquery.js"></script>
+		<script type="text/javascript" src="script/global.js"></script>
+		<script src="assets/foundation/js/foundation.js"></script>
+		<script type="text/javascript" src="script/register.js"></script>
+	</body>
+</html>

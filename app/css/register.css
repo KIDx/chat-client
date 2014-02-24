@@ -1,0 +1,52 @@
+body {
+	background: linear-gradient(to bottom, #A5DDCB, rgba(0,0,255,0));
+	background-repeat: no-repeat;
+	width: 380px;
+	height: 486px;
+}
+
+small {
+	font-size: 65%;
+}
+
+#content {
+	width: 300px;
+	top: 35px;
+	left: 40px;
+}
+
+#submit {
+	margin-bottom: 25px;
+}
+
+#overlay {
+	top: 0;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: rgba(0, 0, 0, .3);
+	z-index: 1000;
+}
+
+#overlay div {
+	margin: 0 70px;
+	margin-top: 150px;
+}
+
+#overlay div > span {
+	text-align: center;
+}
+
+#overlay div > span > span {
+	padding: 15px 0;
+	display: block;
+	font-size: 200%;
+}
+
+span#login {
+	height: 20px;
+	font-size: 14px!important;
+	line-height: 0;
+	padding: 0;
+	margin: 0;
+}

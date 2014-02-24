@@ -1,0 +1,102 @@
+body {
+	background: linear-gradient(to bottom, rgba(255,255,255,0), #eee), url(../img/bg.jpg), #eee;
+	background-repeat: no-repeat;
+	width: 380px;
+	height: 295px;
+}
+
+label {
+	font-size: 13px;
+	padding-left: 3px;
+	margin-right: 20px;
+	color: #000;
+}
+
+input[type="text"],
+input[type="password"] {
+	height: 25px;
+	width: 180px;
+	padding: 0 0 0 5px;
+	margin-bottom: 5px;
+}
+
+.link.fr {
+	margin: 8px;
+}
+
+#top {
+	color: #f2f2f2;
+}
+
+.header {
+	font-weight: bold;
+}
+
+#content {
+	top: 140px;
+	overflow: visible;
+}
+
+#left {
+	transition: margin-left 1s;
+	border-radius: 3px;
+	border: 1px solid #fff;
+	float: left;
+	height: 80px;
+	margin-left: 20px;
+	box-shadow: inset 0 0 6px #888;
+}
+
+#left > img {
+	position: relative;
+	z-index: -1;
+}
+
+#right {
+	margin-left: 112px;
+}
+
+#right > .link {
+	margin-left: 10px;
+}
+
+#button {
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	text-align: center;
+}
+
+#login {
+	transition: box-shadow .2s;
+	height: 32px;
+	width: 155px;
+	text-align: center;
+	margin-bottom: 25px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 14px;
+	background: linear-gradient(#fff, #eff3f6);
+	outline: none;
+	box-shadow: 0 1px 3px #888;
+}
+
+#login:focus,
+#login:active,
+#login:hover {
+	box-shadow: 0 0 3px #00a5fd, 0 0 2px #00a5fd, 0 1px 3px #555;
+}
+
+#login:active {
+	background: linear-gradient(#D6E7F3, #fff);
+}
+
+@-webkit-keyframes img_animate {
+	from { box-shadow: inset 0 0 0 #fff, 0 0 1px #ddd; }
+	to { box-shadow: inset 0 0 6px #888, 0 0 15px #fff; }
+}
+
+.img_running {
+	-webkit-animation: img_animate 1s infinite alternate;
+}

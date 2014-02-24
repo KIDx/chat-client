@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CC猫</title>
+		<link type="text/css" href="css/style.css" rel="stylesheet">
+		<link type="text/css" href="css/main.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="top"></div>
+		<div id="head">
+			<div id="head_left" class="fl">
+				<img class="img_60x60 hover" src="">
+			</div>
+			<div id="head_right">
+				<div class="ellipsis">
+					<span id="nick" class="hover text_light text_xlarge"></span>
+				</div>
+				<div id="sig" class="ellipsis mini_btn text_light text_small">编辑个性签名</div>
+				<input id="signature" onfocus="this.select();" class="text_small" type="text">
+			</div>
+		</div>
+		<div id="content">
+			<ul class="user_list"></ul>
+		</div>
+		<div id="foot">
+			<div>
+				<a id="find" class="mini_btn">
+					<img src="img/find.png">查找
+				</a>
+				<a id="sysmsg" class="mini_btn">
+					<img src="img/mail.png">系统消息
+				</a>
+			</div>
+		</div>
+		<script src="script/socket.io.js"></script>
+		<script src="script/jquery.js"></script>
+		<script src="script/global.js"></script>
+		<script src="script/main.js"></script>
+	</body>
+</html>

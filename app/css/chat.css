@@ -1,0 +1,94 @@
+.inputarea {
+	display: block;
+	margin: 0;
+	resize: none;
+	border: none;
+	outline: none;
+	background: #fff;
+	background: linear-gradient(to left, #e9f2fa, #fff);
+}
+
+#top {
+	height: 0;
+}
+
+#head {
+	padding: 8px;
+	display: inline-block;
+}
+
+#head > span {
+	float: left;
+	margin-right: 8px;
+}
+
+#head .text_small {
+	margin-top: 3px;
+}
+
+#content {
+	top: 90px;
+	height: 445px;
+	background: linear-gradient(to right, #d2e0f2, #f2fafe);
+}
+
+#left {
+	float: left;
+	width: 390px;
+}
+
+#right {
+	float: right;
+	margin: 2px 5px;
+}
+
+#right > div:first-child {
+	height: 300px;
+}
+
+.foot {
+	padding-top: 5px;
+	overflow: hidden;
+}
+
+.foot > a {
+	float: right;
+}
+
+#T1 {
+	width: 100%;
+	height: 288px!important;
+}
+
+#T2 {
+	width: 100%;
+	height: 95px!important;
+}
+
+#tools {
+	width: 100%;
+	height: 23px;
+	padding: 2px 0;
+}
+
+#tools > a {
+	margin: 1px 0 0 5px;
+	height: 16px;
+}
+
+#smiley {
+	top: 79px;
+	left: 1px;
+	width: 310px;
+	height: 200px;
+	position: absolute;
+	border-radius: 2px;
+	border: 1px solid #ddd;
+	background: #fff;
+	padding: 3px;
+	overflow: auto;
+}
+
+#smiley > img {
+	margin: 3px;
+}

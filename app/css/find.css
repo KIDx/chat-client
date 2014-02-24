@@ -1,0 +1,46 @@
+#content {
+	top: 150px;
+	height: 450px;
+	background: #fff;
+}
+
+#users {
+	padding: 5px;
+}
+
+.user_box {
+	width: 200px;
+	height: 60px;
+	padding: 8px;
+	margin: 5px 3px;
+	float: left;
+	background: #f5fafa;
+}
+
+.user_box > img {
+	border-radius: 3px;
+}
+
+.info {
+	margin-left: 70px;
+}
+
+.info > div:nth-child(2) {
+	margin: 4px 0;
+}
+
+.add {
+	transition: background .2s;
+	border-radius: 3px;
+	background: #d7e4c7;
+	height: 20px;
+	width: 60px;
+	line-height: 20px;
+	color: #4f8c00;
+	text-align: center;
+	cursor: pointer;
+}
+
+.add:hover {
+	background: #c8daab;
+}

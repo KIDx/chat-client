@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CC猫</title>
+		<link type="text/css" href="css/style.css" rel="stylesheet">
+		<link type="text/css" href="css/login.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="top"><span class="header">CC猫</span></div>
+		<div id="content">
+			<div id="left" class="img">
+				<img src="avatar/jpg/01.jpg" class="img_80x80">
+			</div>
+			<div id="right">
+				<input id="name" type="text" autofocus="true" placeholder="帐号">
+				<span id="reg" class="link">注册帐号</span>
+				<input id="psw" type="password" placeholder="密码">
+				<span class="link">忘记密码</span>
+				<div>
+					<input id="rmb_psw" type="checkbox"><label for="rmb_psw">记住密码</label>
+					<input id="auto_login" type="checkbox"><label for="auto_login">自动登录</label>
+				</div>
+			</div>
+		</div>
+		<div id="button">
+			<button id="login" class="button small">登录</button>
+		</div>
+		<span id="err" class="hide"></span>
+		<div id="loading" class="hide"></div>
+		<script src="script/config.js"></script>
+		<script src="script/jquery.js"></script>
+		<script src="script/global.js"></script>
+		<script src="script/login.js"></script>
+	</body>
+</html>

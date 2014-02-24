@@ -1,0 +1,33 @@
+.avatar {
+	border: 1px solid #fff;
+	box-shadow: 0 0 3px #333;
+}
+
+#top {
+	background: linear-gradient(rgba(255,255,255,0), #fff);
+}
+
+#content {
+	height: 385px;
+	background: #fff;
+}
+
+#content > div {
+	float: left;
+}
+
+#left {
+	padding: 5px;
+	width: 485px;
+	height: 375px;
+	background: #f2f2f2;
+}
+
+#left > img {
+	margin: 5px;
+}
+
+#right {
+	margin-left: 5px;
+	padding: 5px;
+}

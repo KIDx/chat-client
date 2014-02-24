@@ -1,0 +1,51 @@
+#top {
+	height: 65px;
+}
+
+#content {
+	top: 65px;
+	height: 380px;
+	background: rgba(255,255,255,.9);
+}
+
+#msg {
+	padding: 3px 25px;
+}
+
+.box {
+	margin: 8px 0;
+	padding: 13px;
+	border: 1px solid #ddd;
+	box-shadow: 0 1px 1px #ddd;
+	border-radius: 2px;
+	background: rgba(255,255,255,.5);
+	overflow: hidden;
+}
+
+.box-white {
+	background: #fff;
+}
+
+.box > div {
+	float: left;
+	margin-right: 10px;
+}
+
+.info > span {
+	float: left;
+	margin: 2px 0;
+	clear: both;
+}
+
+.item {
+	margin-top: 15px;
+	float: right!important;
+}
+
+.item > a {
+	display: inline-block;
+}
+
+.item > span {
+	margin-right: 5px;
+}

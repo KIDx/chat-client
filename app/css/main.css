@@ -1,0 +1,106 @@
+#head {
+	top: 30px;
+	position: absolute;
+}
+
+#sig {
+	margin: 8px 10px 0 0;
+	display: block;
+	height: 15px;
+	width: 182px;
+}
+
+#signature {
+	border: none;
+	outline: none;
+	display: none;
+	width: 182px;
+	margin-top: 8px;
+	padding: 2px 4px;
+	background: #f2f2f2;
+}
+
+#head_left {
+	margin-left: 10px;
+	height: 60px;
+	position: relative;
+}
+
+#head_right {
+	margin-left: 80px;
+}
+
+#content {
+	top: 200px;
+	position: absolute;
+	background: rgba(255,255,255,.9);
+	height: 460px;
+}
+
+.mini_btn img {
+	float: left;
+	margin-right: 3px;
+}
+
+#foot {
+	height: 59px;
+}
+
+#foot > div {
+	padding: 10px;
+}
+
+.user_list {
+	margin: 0;
+	padding: 0;
+}
+
+.user_list > li {
+	margin: 0 0 1px 0;
+	padding: 10px;
+	height: 40px;
+	list-style: none;
+}
+
+.user_list > li div.sig {
+	margin-top: 8px;
+}
+
+.user_list > li:hover {
+	background: rgba(200,228,255,0.35);
+}
+
+.user_list > li.active {
+	background: rgba(173,218,253,0.35);
+}
+
+.user_list > li > img {
+	border-radius: 3px;
+	border: 1px solid rgba(0,0,0,0);
+}
+
+.user_list > li.active > img {
+	border-color: #C2D7EE;
+}
+
+.li_right {
+	font-size: 13px;
+	color: #333;
+	margin-left: 50px;
+}
+
+@-webkit-keyframes alive {
+	0% {
+		margin: 0;
+	}
+	50% {
+		margin: -1px 0 0 1px;
+	}
+	100% {
+		margin: 0 0 0 2px;
+	}
+}
+
+.alive {
+	-webkit-animation: alive .5s infinite alternate;
+}

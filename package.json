@@ -1,0 +1,21 @@
+{
+  "main": "app/login.html",
+  "name": "CC",
+  "keywords": [
+    "CC",
+    "chat",
+    "chatting"
+  ],
+  "window": {
+    "frame": false,
+    "toolbar": false,
+    "position": "center",
+    "width": 380,
+    "height": 295,
+    "resizable": false,
+    "show": false
+  },
+  "dependencies": {
+    "nedb": "*"
+  }
+}

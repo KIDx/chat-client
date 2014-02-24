@@ -1,0 +1,12 @@
+#top {
+	background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.9));
+}
+
+#content {
+	height: 75px;
+	background: rgba(255,255,255,.9);
+}
+
+#msg {
+	padding: 10px;
+}

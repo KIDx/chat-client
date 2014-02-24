@@ -1,0 +1,51 @@
+body {
+	font-size: 13px;
+}
+
+#top {
+	background: linear-gradient(rgba(255,255,255,0), #fff);
+}
+
+#content {
+	height: 280px;
+	background: #fff;
+}
+
+#content > div {
+	float: left;
+}
+
+#left {
+	padding: 10px;
+	width: 110px;
+	height: 260px;
+	background: #fbfbff;
+}
+
+#left img, #left div {
+	margin-top: 6px;
+}
+
+#left span {
+	float: left;
+	clear: both;
+	margin: 2px 0;
+}
+
+#right {
+	padding: 5px 15px;
+}
+
+#right textarea {
+	width: 275px;
+}
+
+#result > span {
+	display: inline-block;
+}
+
+#result > span:nth-child(2) {
+	margin-left: 8px;
+	width: 250px;
+	line-height: 20px;
+}

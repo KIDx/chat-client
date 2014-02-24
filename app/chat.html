@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>CC猫</title>
+    <link type="text/css" href="css/style.css" rel="stylesheet">
+    <link type="text/css" href="css/chat.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="top"></div>
+    <div id="head">
+      <span>
+        <img id="avatar" class="img_60x60 avatar img-gray">
+      </span>
+      <span>
+        <span id="nick" class="fl text_light text_large"></span>
+        <span id="sig" class="fl text_light text_small cb"></span>
+      </span>
+    </div>
+    <div id="content">
+      <div id="left">
+        <iframe src="iframe.html" class="inputarea" id="T1"></iframe>
+        <div tabindex="-1" id="smiley" class="hide"></div>
+        <div id="tools">
+          <a id="show_smiley" class="mini_btn"><img src="img/smiley.png"></a>
+        </div>
+        <iframe src="iframe.html" class="inputarea" id="T2"></iframe>
+        <div class="foot">
+          <a id="send" class="btn" href="javascript:;">发送(<u>S</u>)</a>
+          <a id="close" class="btn" href="javascript:;">关闭(<u>C</u>)</a>
+        </div>
+      </div>
+      <div id="right">
+        <div><img src="img/test1.jpg"></div>
+        <div><img src="img/test2.jpg"></div>
+      </div>
+    </div>
+    <script src="script/jquery.js"></script>
+    <script src="script/global.js"></script>
+    <script src="script/editor.js"></script>
+    <script src="script/chat.js"></script>
+  </body>
+</html>
