@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CC猫</title>
+        <link type="text/css" href="css/style.css" rel="stylesheet">
+        <link type="text/css" href="css/videochat.css" rel="stylesheet">
+        <script src="script/simplewebrtc.bundle.js"></script>
+        <script src="script/socket.io.js"></script>
+    </head>
+    <body>
+        <div id="top">
+            <span id="title" class="header text_light"></span>
+        </div>
+        <div id="content">
+            <video id="local" autoplay="autoplay" poster="img/local.png" class="hide"></video>
+            <div id="remote"></div>
+        </div>
+        <div id="bg">
+            <span id="info">正在等待对方接受邀请...</span>
+        </div>
+        <script src="script/config.js"></script><!-- please remove thie latter! -->
+        <script src="script/jquery.js"></script>
+        <script src="script/global.js"></script>
+        <script src="script/videochat.js"></script>
+    </body>
+</html>

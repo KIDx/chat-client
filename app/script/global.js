@@ -1,5 +1,9 @@
 'use strict';
 
+window.ondragstart = function() {
+	return false;
+};
+
 var GUI = require('nw.gui');
 global.gui = GUI;
 
@@ -37,6 +41,24 @@ function NewWindow(name, isClose) {
 }
 
 /**
+ * 新建并绑定右键菜单
+ */
+function NewMenu(id, ary) {
+	var menu = new GUI.Menu();
+	if (ary && ary.length) {
+		for (var i = 0; i < ary.length; i++) {
+			if (ary[i])
+				menu.append(new GUI.MenuItem(ary[i]));
+		}
+	}
+	document.getElementById(id).addEventListener('contextmenu', function(e){
+		e.preventDefault();
+		menu.popup(e.x, e.y);
+		return false;
+	})
+}
+
+/**
  * 新建一个提示窗口
  */
 function CreateHint(content) {
@@ -48,7 +70,7 @@ function CreateHint(content) {
  */
 function ShowAnimate($p, txt) {
 	if (txt) $p.text(txt);
-	$p.fadeIn(300);
+	$p.stop().fadeIn();
 }
 
 /**
@@ -139,7 +161,7 @@ function BuildFrame(tools, win) {
  */
 function BindAlert() {
 	$('.alert').find('.close').click(function(){
-		$(this).parent().hide();
+		$(this).parent().stop().fadeOut();
 	});
 }
 

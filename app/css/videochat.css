@@ -1,0 +1,41 @@
+
+#top {
+	height: 0;
+}
+
+#content {
+	top: 35px;
+	overflow: visible;
+}
+
+#remote {
+	height: 400px;
+	background: url(../img/remote.png);
+}
+
+#remote video {
+	width: 100%;
+}
+
+#local {
+	border: 2px solid #fff;
+	height: 112px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	z-index: 50;
+}
+
+#bg {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	background: rgba(0,0,0,0.5);
+	height: 22px;
+	padding: 8px;
+	z-index: 100;
+}
+
+#info {
+	color: #fff;
+}

@@ -112,7 +112,7 @@ $(document).ready(function(){
 			}
 			createBox(pre=cur, d, 'prepend');
 			$news.find('.red').text(++num);
-			ShowAnimate($news);
+			$news.stop().fadeIn();
 		};
 		ListenMessage(win, handle);
 	});

@@ -8,30 +8,47 @@
   </head>
   <body>
     <div id="top"></div>
-    <div id="head">
+    <span id="head">
       <span>
-        <img id="avatar" class="img_60x60 avatar img-gray">
+        <img id="avatar" class="hide img_40x40 avatar img-gray">
       </span>
       <span>
         <span id="nick" class="fl text_light text_large"></span>
         <span id="sig" class="fl text_light text_small cb"></span>
       </span>
-    </div>
+    </span>
+    <span id="features" class="fl cb">
+      <span id="camera" class="hide mini_btn" title="发起视频聊天"><img src="img/camera.png"></span>
+    </span>
     <div id="content">
       <div id="left">
+        <span class="alert hide">
+          <span id="info"></span>
+          <span class="close">×</span>
+        </span>
         <iframe src="iframe.html" class="inputarea" id="T1"></iframe>
         <div tabindex="-1" id="smiley" class="hide"></div>
         <div id="tools">
-          <a id="show_smiley" class="mini_btn"><img src="img/smiley.png"></a>
+          <span id="show_smiley" class="mini_btn"><img src="img/smiley.png"></span>
         </div>
         <iframe src="iframe.html" class="inputarea" id="T2"></iframe>
         <div class="foot">
-          <a id="send" class="btn" href="javascript:;">发送(<u>S</u>)</a>
-          <a id="close" class="btn" href="javascript:;">关闭(<u>C</u>)</a>
+          <span id="send" class="btn">发送(<u>S</u>)</span>
+          <span id="close" class="btn">关闭(<u>C</u>)</span>
         </div>
       </div>
       <div id="right">
-        <div><img src="img/test1.jpg"></div>
+        <div id="show">
+          <img id="hisshow" src="img/test1.jpg">
+          <div id="video" class="hide">
+            <div><img src="img/video.png"></div><br>
+            对方邀请视频中...
+            <div class="btns">
+              <span id="accept" class="btn">接受</span>
+              <span id="reject" class="btn">拒绝</span>
+            </div>
+          </div>
+        </div>
         <div><img src="img/test2.jpg"></div>
       </div>
     </div>

@@ -6,7 +6,20 @@ var win = GetWindow()
 
 /**
  * Socket.
- * data.type: (0: 在线状态, 1: 聊天消息, 2: 个性签名更新, 3: 头像更新, 4: 好友添加请求, 5: 好友添加验证结果)
+ * data.type --->
+ * -1: 对方主动发送在线状态，我方回应在线状态
+ *	0: 对方回应的在线状态
+ *	1: 他的聊天消息
+ *	2: 他的个性签名更新
+ *	3: 他的头像更新
+ *	4: 他的好友添加请求
+ *	5: 他拒绝我添加为好友
+ *	6: 他同意我添加为好友
+ *	7: 对方发起视频聊天
+ *	8: 对方取消视频聊天
+ *	9: 对方同意或拒绝我方发起的视频聊天
+ * 10: 对方中断了视频聊天
+ * 11: 对方与我断绝好友关系
  */
 var socket;
 
@@ -34,23 +47,43 @@ var User = require('./models/user')
 
 function createWindow(id, name, isChat) {
 	if (wins[id]) {
-		wins[id].focus();
+		if (wins[id].opened)
+			wins[id].focus();
 	} else {
 		if (!name) name = id;
-		wins[id] = NewWindow(name);
+		var RP = function() {
+			wins[id] = NewWindow(name);
+			wins[id].opened = true;
+			wins[id].on('closed', function(){
+				wins[id] = null;
+			});
+		};
 		if (isChat) {
-			wins[id].user = id;
-			if (notice_msg[id]) {
-				wins[id].firstChat = true;
-				notice_msg[id] = null;
-			}
-			if (onlinestatus[id]) {
-				wins[id].onlinestatus = onlinestatus[id];
-			}
+			wins[id] = true;
+			User.findOne({name: id}, function(err, user){
+				if (err) {
+					console.log(err);
+				}
+				RP();
+				wins[id].user = user;
+				var m;
+				if (m = notice_msg[id]) {
+					if (m == 6) {
+						wins[id].firstChat = true;
+					} else if (m == 7) {
+						wins[id].video = 1;
+					} else if (m == 8) {
+						wins[id].video = 2;
+					}
+					notice_msg[id] = null;
+				}
+				if (onlinestatus[id]) {
+					wins[id].onlinestatus = onlinestatus[id];
+				}
+			});
+		} else {
+			RP();
 		}
-		wins[id].on('closed', function(){
-			wins[id] = null;
-		});
 	}
 }
 
@@ -108,21 +141,43 @@ function buildUser($ul, p) {
 	html += '<div class="sig gray ellipsis">'+(p.signature ? p.signature : '')+'</div>';
 	html += '</div></li>';
 	$ul.append(html);
+
 	var $li = $ul.find('#'+p.name);
-	$li.click(function(){
-		if ($(this).hasClass('active'))
+	//选中好友
+	var active = function() {
+		if ($li.hasClass('active'))
 			return false;
 		$ul.find('li').removeClass('active');
-		$(this).addClass('active');
-	});
-	$li.dblclick(function(){
-		var id = $(this).attr('id');
+		$li.addClass('active');
+	};
+	$li.mousedown(active);
+	//打开聊天窗口
+	var openChat = function() {
+		var id = p.name;
 		createWindow(id, 'chat', true);
 		if (delNotice(id)) {
 			$('#'+id).find('img').removeClass('alive');
 			updateNotice();
 		}
-	});
+	};
+	$li.dblclick(openChat);
+	//绑定右键菜单
+	NewMenu(p.name, [{
+		label: '发送即时消息',
+		icon: 'app/img/talk.png',
+		click: function(){
+			openChat();
+		}
+	}, {
+		label: '删除好友',
+		icon: 'app/img/remove_friend.png',
+		click: function(){
+			if (!window.confirm('确定删除该好友吗？')) {
+				return false;
+			}
+			socket.json.send({type: 11, to: p.name});
+		}
+	}]);
 }
 
 /**
@@ -154,21 +209,21 @@ function start() {
 			onlinestatus[id] = status;
 			PostMessage(wins[id], {type: 0, msg: status});
 		};
-		socket.on('message', function(data, fn){
-			if (!data) return ;
-			switch(data.type) {
-				case -1: socket.json.send({type: 0, to: data.from, msg: global.onlineStatus});
+		socket.on('message', function(d, fn){
+			if (!d) return ;
+			switch(d.type) {
+				case -1: socket.json.send({type: 0, to: d.from, msg: global.onlineStatus});
 				case 0: {
-					updateStatus(data.from, data.msg);
+					updateStatus(d.from, d.msg);
 					break;
 				}
 				case 1: {
-					var id = data.from, msg = data.msg
+					var id = d.from, msg = d.msg
 					,	doc = {
 						type: 1,
 						from: id,
 						msg: msg,
-						inDate: data.inDate
+						inDate: d.inDate
 					};
 					if (wins[id]) {
 						PostMessage(wins[id], {type: 1, msg: msg});
@@ -187,56 +242,55 @@ function start() {
 					break;
 				}
 				case 2: {
-					var id = data.from;
+					var id = d.from;
 					if (id == user.name) {
-						user.signature = data.msg;	//update session
+						user.signature = d.msg;	//update session
 					}
-					$('#'+id).find('.sig').text(global.clearSpace(data.msg));
-					//update <data.from>'s signature for his chat window
-					PostMessage(wins[id], {type: 2, msg: data.msg});
-					//update database
-					User.update({name: id}, {$set: {signature: data.msg}});
+					$('#'+id).find('.sig').text(global.clearSpace(d.msg));
+					//update <d.from>'s signature for his chat window
+					PostMessage(wins[id], {type: 2, msg: d.msg});
+					//update dbase
+					User.update({name: id}, {$set: {signature: d.msg}});
 					break;
 				}
 				case 3: {
-					var id = data.from;
-					var n = data.msg.name, f = data.msg.format, src = 'avatar/'+f+'/'+n+'.'+f;
+					var id = d.from;
+					var n = d.msg.name, f = d.msg.format, src = 'avatar/'+f+'/'+n+'.'+f;
 					if (id == user.name) {
 						user.img = n; user.imgFormat = f;	//update session
 						$avatar.attr('src', src);
 						//update <this user>'s avatar for each chat window
 						for(var i in wins) {
 							if (wins[i] && wins[i].user) {
-								PostMessage(wins[i], {type: 3, from: id, msg: data.msg});
+								PostMessage(wins[i], {type: 3, from: id, msg: d.msg});
 							}
 						}
 					} else {
-						//update <data.from>'s avatar for his chat window
-						PostMessage(wins[id], {type: 3, from: id, msg: data.msg});
+						//update <d.from>'s avatar for his chat window
+						PostMessage(wins[id], {type: 3, from: id, msg: d.msg});
 					}
 					$('#'+id).find('img').attr('src', src);
-					//update database
+					//update dbase
 					User.update({name: id}, {$set: {img: n, imgFormat: f}});
 					break;
 				}
 				case 4: {
 					var doc = {
 						type: 4,
-						from: data.from,
-						msg: data.msg,
+						from: d.from,
+						msg: d.msg,
 						read: 1,
-						inDate: data.inDate
+						inDate: d.inDate
 					};
 					Chatlog.insert(doc, function(err){
 						if (err) {
 							console.log(err);
 							return ;
 						}
-						if (data.user) {
-							User.update({name: data.user.name}, {$set: data.user}, function(err){
+						if (d.user) {
+							User.update({name: d.user.name}, {$set: d.user}, function(err){
 								if (err) {
 									console.log(err);
-									return ;
 								}
 								if (wins['sysmsg']) {
 									PostMessage(wins['sysmsg'], doc);
@@ -252,10 +306,10 @@ function start() {
 					break;
 				}
 				case 6: {
-					if (data.msg && data.msg.name) {
-						buildUser($ul, data.msg);
-						var id = data.msg.name;
-						User.update({name: id}, {$set: data.msg}, function(err){
+					if (d.msg && d.msg.name) {
+						buildUser($ul, d.msg);
+						var id = d.msg.name;
+						User.update({name: id}, {$set: d.msg}, function(err){
 							if (err) {
 								console.log(err);
 								return ;
@@ -263,11 +317,40 @@ function start() {
 							if (!wins[id]) {
 								$('#'+id).find('img.avatar').addClass('alive');
 								addNotice(id);
-								notice_msg[id] = true;
+								notice_msg[id] = 6;
 							}
 						});
 					}
 					if (fn) fn(global.onlineStatus);
+					break;
+				}
+				case 7:
+				case 8: {
+					var id = d.from;
+					if (wins[id]) {
+						if (d.type == 8)
+							wins[id].closeVideo = true;
+						PostMessage(wins[id], {type: d.type});
+					} else {
+						addNotice(id);
+						notice_msg[id] = d.type;
+						$('#'+id).find('img').addClass('alive');
+					}
+					break;
+				}
+				case 9: {
+					PostMessage(wins[d.from], {type: 9, msg: d.msg});
+					break;
+				}
+				case 10: {
+					PostMessage(wins[d.from], {type: 10});
+					break;
+				}
+				case 11: {
+					var id = d.from;
+					if (wins[id])
+						wins[id].close();
+					$('#'+id).remove();
 					break;
 				}
 				default: break;
@@ -297,6 +380,7 @@ var $nick = $('#nick')
 
 $(document).ready(function(){
 	$avatar.attr('src', global.getImgSrc(user.img, user.imgFormat));
+	$avatar.show();
 	$nick.text(user.nick);
 	$sig.text(user.signature);
 	$sig.click(function(){

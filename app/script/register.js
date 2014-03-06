@@ -74,7 +74,7 @@ function check() {
 	$.each($input, function(i, p){
 		var $p = $(p), id = $p.attr('id'), val = $p.val();
 		if (!judge(id, val)) {
-			$p.prev().addClass('error-text');
+			$p.parent().prev().addClass('error-text');
 			$p.focus();
 			err_input = id;
 			return (flg = false);
@@ -110,13 +110,13 @@ $(document).ready(function(){
 	$input.blur(function(){
 		var id = $(this).attr('id');
 		if (judge(id, $(this).val())) {
-			$(this).prev().removeClass('error-text');
+			$(this).parent().prev().removeClass('error-text');
 			if (err_input == id) {
 				err_input = '';
 				$err.hide();
 			}
 		} else {
-			$(this).prev().addClass('error-text');
+			$(this).parent().prev().addClass('error-text');
 			err_input = id;
 		}
 	});

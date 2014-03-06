@@ -1,7 +1,7 @@
 'use strict';
 
 //设置登录所需最小持续时间，为了延长动画时间
-var mins = 0;
+var mins = 3000;
 
 //数据库模型(users)
 var Datalist = require('./models/loginDatalist')
@@ -158,12 +158,12 @@ $(document).ready(function(){
 			$name.attr('list', 'users');
 			var html = '<datalist id="users">';
 			for (var i = 0; i < users.length; i++) {
-				html += '<option value="'+users[i].name+'" label="'+users[i].nick+'">';
+				html += '<option value="'+users[i].name+'" label="'+users[i].nick+'.">';
 				user_psw[users[i].name] = users[i].psw;
 			}
 			html += '</datalist>';
 			$name.after(html);
-			$name.change(function(){
+			$name.bind('input', function(){
 				if (user_psw[$name.val()]) {
 					$psw.val(user_psw[$name.val()]);
 				} else {

@@ -7,7 +7,12 @@
 /**
  * 服务器地址
  */
-global.server = 'http://192.168.1.107:3000';
+global.server = 'http://192.168.1.108:3000';
+
+/**
+ * 视频通话服务器地址
+ */
+global.webrtcServer = 'http://192.168.1.108:8080';
 
 /**
  * 存储当前会话信息
@@ -56,7 +61,7 @@ global.win_option = {
 		toolbar 	: false,
 		position 	: 'center',
 		width 		: 380,
-		height 		: 486,
+		height 		: 430,
 		resizable 	: false,
 		show		: false
 	},
@@ -120,6 +125,15 @@ global.win_option = {
 		position 	: 'center',
 		width 		: 460,
 		height 		: 360,
+		resizable 	: false,
+		show 		: false
+	},
+	videochat: {
+		frame 		: false,
+		toolbar 	: false,
+		position 	: 'center',
+		width 		: 540,
+		height 		: 435,
 		resizable 	: false,
 		show 		: false
 	}

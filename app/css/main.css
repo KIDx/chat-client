@@ -1,3 +1,9 @@
+::-webkit-scrollbar {
+	width: 10px;
+	border: 1px solid #dbdbdb;
+	background: #f2f2f2;
+}
+
 #head {
 	top: 30px;
 	position: absolute;

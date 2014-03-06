@@ -1,17 +1,22 @@
 ::-webkit-scrollbar {
 	width: 9px;
-	background: transparent;
-}
-
-::-webkit-scrollbar-track {
-	border-radius: 5px;
 	background: #e9f2fa;
 }
 
 ::-webkit-scrollbar-thumb {
-	border: 1px solid #b0b8bd;
-	border-radius: 5px;
-	background: #bbc4c9;
+	border: 1px solid #bdbdbd;
+	border-radius: 1px;
+	background: #d9d9d9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	border-color: #a9a9a9;
+	background: #c2c2c2;
+}
+
+::-webkit-scrollbar-thumb:active {
+	border-color: #7e7e7e;
+	background: #919191;
 }
 
 html,body {
@@ -43,7 +48,6 @@ body {
 textarea {
 	border: 1px solid #8faabc;
 	border-radius: 2px;
-	outline: none;
 	resize: none;
 	padding: 4px 3px;
 }
@@ -113,6 +117,35 @@ input[type="checkbox"]:hover {
 
 .bold {
 	font-weight: bold;
+}
+
+.big_btn {
+	transition: box-shadow .2s;
+	height: 32px;
+	width: 155px;
+	text-align: center;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 14px;
+	background: linear-gradient(#fff, #eff3f6);
+	outline: none;
+	box-shadow: 0 1px 3px #888;
+}
+
+.big_btn:focus,
+.big_btn:active,
+.big_btn:hover {
+	box-shadow: 0 0 3px #00a5fd, 0 0 2px #00a5fd, 0 1px 3px #555;
+}
+
+.big_btn:active {
+	background: linear-gradient(#D6E7F3, #fff);
+}
+
+.big_btn.disabled {
+	color: #777;
+	box-shadow: none!important;
+	background: #eff3f6!important;
 }
 
 .btn {

@@ -6,6 +6,8 @@ function Editor(id, editable, css) {
 	,	$html = $('#'+id).contents().find('html')
 	,	$body = $html.find('body');
 
+	$body.html('');
+
 	if (editable) {
 		doc.designMode = 'On';
 	}
