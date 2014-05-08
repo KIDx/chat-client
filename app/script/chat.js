@@ -71,6 +71,9 @@ var win = GetWindow()
  */
 function openVideo() {
 	video = NewWindow('videochat');
+	win.video = true;
+	video.accepted = win.accepted;
+	video.rejected = win.rejected;
 	video.parent = win;
 	video.username = u.name;
 	video.nick = u.nick;
@@ -86,6 +89,7 @@ function openVideo() {
 		}
 		$camera.removeClass('disabled');
 		video = null;
+		win.video = false;
 	});
 }
 
@@ -210,7 +214,13 @@ $(document).ready(function(){
 			switch(d.type) {
 				case 0: {
 					if (d.msg) $avatar.removeClass('img-gray');
-					else $avatar.addClass('img-gray');
+					else {
+						if (video) {
+							video.close();
+							showAlert('对方中断了视频聊天');
+						}
+						$avatar.addClass('img-gray');
+					}
 					break;
 				}
 				case 1: {

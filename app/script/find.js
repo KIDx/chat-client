@@ -14,7 +14,7 @@ function buildUser(u) {
 	html += global.img(global.getImgSrc(u.img, u.imgFormat), null, 'img_60x60 fl');
 	html += '<div class="info">';
 	html += '<div>' + u.nick + '</div>';
-	html += '<div><span class="text_small gray">' + '广东 佛山' + '</span></div>';
+	html += '<div><span class="text_small gray"><img class="sex" src="img/' + (u.sex ? 'fe' : '') + 'male.png"> ' + '广东 佛山' + '</span></div>';
 	html += '<div class="add" id="' + u.name + '"><b>+</b> 好友</div></div></div>';
 	html += '</div>';
 	$users.append(html);

@@ -55,6 +55,9 @@ function createWindow(id, name, isChat) {
 			wins[id] = NewWindow(name);
 			wins[id].opened = true;
 			wins[id].on('closed', function(){
+				if (wins[id].video) {
+					socket.json.send({type: 10, to: wins[id].user.name});
+				}
 				wins[id] = null;
 			});
 		};
@@ -214,6 +217,8 @@ function start() {
 			switch(d.type) {
 				case -1: socket.json.send({type: 0, to: d.from, msg: global.onlineStatus});
 				case 0: {
+					if (d.from == user.name)
+						$avatar.removeClass('img-gray');
 					updateStatus(d.from, d.msg);
 					break;
 				}
@@ -363,6 +368,7 @@ function start() {
 		socket.on('disconnect', function(data){
 			console.log('socket is disconnected.');
 			global.onlineStatus = -1;
+			$avatar.addClass('img-gray');
 			updateStatus(user.name, 0);
 			for (var i = 0; i < users.length; i++)
 				updateStatus(users[i].name, 0);

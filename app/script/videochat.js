@@ -1,6 +1,7 @@
 'use strict';
 
-var win = GetWindow();
+var win = GetWindow()
+,	user = global.session.user;
 
 $(document).ready(function(){
 	if (win.parent) {
@@ -11,6 +12,14 @@ $(document).ready(function(){
 	win.moveTo(win.tx, win.ty);
 	BuildFrame(['close', 'maximize', 'minimize'], win);
 });
+
+function getRoomName(a, b) {
+	if (a < b) {
+		return a + '-' + b;
+	} else {
+		return b + '-' + a;
+	}
+}
 
 var webrtc;
 
@@ -44,7 +53,7 @@ $(document).ready(function(){
 
 	//建立P2P连接并进行视频
 	var runWebrtc = function() {
-		joinWebrtc('test', function(){
+		joinWebrtc(getRoomName(user.name, win.username), function(){
 			$info.text('');
 			$bg.stop().animate({'bottom': '-38px'});
 			$local.fadeIn();

@@ -7,12 +7,13 @@
 /**
  * 服务器地址
  */
-global.server = 'http://192.168.1.108:3000';
+global.server = 'http://172.22.27.1:5000';
+//global.server = 'http://localhost:3000';
 
 /**
  * 视频通话服务器地址
  */
-global.webrtcServer = 'http://192.168.1.108:8080';
+//global.webrtcServer = 'http://192.168.1.106:8080';
 
 /**
  * 存储当前会话信息
