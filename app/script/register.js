@@ -92,8 +92,8 @@ function disabled() {
 	$input.attr('disabled', true);
 	$sex.attr('disabled', true);
 	$submit.addClass('disabled');
-	$loading.show();
-	$err.hide();
+	Show($loading);
+	Hide($err);
 }
 
 /**
@@ -103,7 +103,7 @@ function resume() {
 	$input.attr('disabled', false);
 	$sex.attr('disabled', false);
 	$submit.removeClass('disabled');
-	$loading.hide();
+	Hide($loading);
 }
 
 $(document).ready(function(){
@@ -113,7 +113,7 @@ $(document).ready(function(){
 			$(this).parent().prev().removeClass('error-text');
 			if (err_input == id) {
 				err_input = '';
-				$err.hide();
+				Hide($err);
 			}
 		} else {
 			$(this).parent().prev().addClass('error-text');
@@ -139,7 +139,7 @@ $(document).ready(function(){
 				resume();
 			} else {
 				$number.text(res);
-				$overlay.show();
+				Show($overlay);
 			}
 		})
 		.fail(function(){

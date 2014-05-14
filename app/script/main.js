@@ -20,6 +20,7 @@ var win = GetWindow()
  *	9: 对方同意或拒绝我方发起的视频聊天
  * 10: 对方中断了视频聊天
  * 11: 对方与我断绝好友关系
+ * 12: 他的个性签名昵称
  */
 var socket;
 
@@ -140,7 +141,7 @@ function buildUser($ul, p) {
 	var html = '<li id="'+p.name+'">';
 	html += global.img(global.getImgSrc(p.img, p.imgFormat), null, 'img_40x40 img-gray fl avatar');
 	html += '<div class="li_right">';
-	html += '<div>'+p.nick+'</div>';
+	html += '<div class="nick">'+p.nick+'</div>';
 	html += '<div class="sig gray ellipsis">'+(p.signature ? p.signature : '')+'</div>';
 	html += '</div></li>';
 	$ul.append(html);
@@ -249,9 +250,9 @@ function start() {
 				case 2: {
 					var id = d.from;
 					if (id == user.name) {
-						user.signature = d.msg;	//update session
+						$sig.text(user.signature = d.msg);	//update session and show signature
 					}
-					$('#'+id).find('.sig').text(global.clearSpace(d.msg));
+					$('#'+id).find('.sig').text(d.msg);
 					//update <d.from>'s signature for his chat window
 					PostMessage(wins[id], {type: 2, msg: d.msg});
 					//update dbase
@@ -358,6 +359,18 @@ function start() {
 					$('#'+id).remove();
 					break;
 				}
+				case 12: {
+					var id = d.from;
+					if (id == user.name) {
+						$nick.text(user.nick = d.msg);	//update session and show nick
+					}
+					$('#'+id).find('.nick').text(d.msg);
+					//update <d.from>'s nick for his chat window
+					PostMessage(wins[id], {type: 12, msg: d.msg});
+					//update dbase
+					User.update({name: id}, {$set: {nick: d.msg}});
+					break;
+				}
 				default: break;
 			}
 		});
@@ -385,20 +398,20 @@ var $nick = $('#nick')
 ,	$signature = $('#signature');
 
 $(document).ready(function(){
-	$avatar.attr('src', global.getImgSrc(user.img, user.imgFormat));
-	$avatar.show();
+	Show($avatar.attr('src', global.getImgSrc(user.img, user.imgFormat)));
 	$nick.text(user.nick);
 	$sig.text(user.signature);
+	$sig.attr('title', user.signature);
 	$sig.click(function(){
 		$signature.val($sig.text());
-		$sig.hide();
-		$signature.show();
+		Hide($sig);
+		Show($signature);
 		$signature.focus();
 	});
 	var toggle = function() {
 		$sig.text($signature.val());
-		$signature.hide();
-		$sig.show();
+		Hide($signature);
+		Show($sig);
 	};
 	$signature.blur(function(){
 		var sig = global.clearSpace($signature.val());
@@ -457,6 +470,15 @@ $(document).ready(function(){
 		} else {
 			CreateHint('您目前处于离线状态，请先登录再更换头像！');
 		}
+	});
+});
+
+/**
+ * 打开 "个人信息" 窗口
+ */
+$(document).ready(function(){
+	$nick.click(function(){
+		createWindow('userinfo');
 	});
 });
 

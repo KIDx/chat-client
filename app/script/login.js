@@ -36,12 +36,12 @@ function toResume(str, delay) {
 		err(str);
 		$left.css({'margin-left': '20px'});
 		setTimeout(function(){
-			$right.show();
+			Show($right);
 			$name.focus();
 			$login.removeClass('disabled');
 		}, 800);
 		$left.removeClass('img_running');
-		$loading.hide();
+		Hide($loading);
 	}, delay);
 }
 
@@ -57,10 +57,10 @@ $(document).ready(function(){
 		$login.addClass('disabled');
 		var start = (new Date()).getTime();
 		$err.fadeOut(300);
-		$right.hide();
+		Hide($right);
 		$left.css({'margin-left': (width($content)-width($left))/2 + 'px'});
 		$left.addClass('img_running');
-		$loading.show();
+		Show($loading);
 		$.ajax({
 			type: 'POST',
 			url: global.server + '/login',

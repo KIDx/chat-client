@@ -33,8 +33,8 @@ var $part = $('.part')
 
 $(document).ready(function(){
 	$next.click(function(){
-		$part.eq(cur).hide();
-		$part.eq(++cur).show();
+		Hide($part.eq(cur));
+		Show($part.eq(++cur));
 		if (cur == 2) {
 			$next.unbind();
 			$next.remove();

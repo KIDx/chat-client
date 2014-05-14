@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CC猫</title>
+		<link type="text/css" href="css/style.css" rel="stylesheet">
+		<link type="text/css" href="css/userinfo.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="top">
+			<span class="header text_light"></span>
+		</div>
+		<div id="content">
+			<table>
+				<tr>
+					<th>帐号：</th>
+					<td><span id="name"></span></td>
+				</tr>
+				<tr>
+					<th>昵称：</th>
+					<td>
+						<span id="nick"></span>
+						<input name="nick" class="hide" type="text">
+					</td>
+				</tr>
+				<tr>
+					<th>个性签名：</th>
+					<td>
+						<span id="signature"></span>
+						<input name="signature" class="hide" type="text">
+					</td>
+				</tr>
+				<tr>
+					<th>性别：</th>
+					<td>
+						<span id="sex"></span>
+						<select name="sex" class="hide">
+							<option value="0">男</option>
+							<option value="1">女</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>生日：</th>
+					<td>
+						<span id="birthday"></span>
+						<input name="birthday" class="hide" type="date">
+					</td>
+				</tr>
+				<tr>
+					<th>所在城市：</th>
+					<td>
+						<span id="city"></span>
+						<input name="city" class="hide" type="text">
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="foot">
+			<a id="edit" class="btn hide">编辑</a>
+			<a id="save" class="btn hide">保存</a>
+		</div>
+		<script src="script/jquery.js"></script>
+		<script src="script/global.js"></script>
+		<script src="script/userinfo.js"></script>
+	</body>
+</html>

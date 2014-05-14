@@ -7,8 +7,8 @@
 /**
  * 服务器地址
  */
-global.server = 'http://172.22.27.1:5000';
-//global.server = 'http://localhost:3000';
+//global.server = 'http://172.22.27.1:5000';
+global.server = 'http://192.168.191.5:3000';
 
 /**
  * 视频通话服务器地址
@@ -137,6 +137,15 @@ global.win_option = {
 		height 		: 435,
 		resizable 	: false,
 		show 		: false
+	},
+	userinfo: {
+		frame 		: false,
+		toolbar 	: false,
+		position 	: 'center',
+		width 		: 350,
+		height 		: 356,
+		resizable 	: false,
+		show 		: false
 	}
 };
 
@@ -190,8 +199,10 @@ global.getlen = function(s) {
  * "月、日、时、分、秒"前补零
  */
 global.deal = function (s) {
-	s = String(s);
-	return new Array(1 - s.length).join("0") + s;
+	s = parseInt(s, 10);
+	if (!s) return '00';
+	if (s < 10) return '0'+s;
+	return s;
 };
 
 /**
@@ -200,6 +211,7 @@ global.deal = function (s) {
  * type
  * | 1: 传入出生日期，返回年龄
  * | 2: 传入日期，返回该日期的大概描述
+ * | 3: 传入日期，返回年月日格式
  */
 global.getFromDate = function(n, type) {
 	n = parseInt(n);
@@ -215,11 +227,11 @@ global.getFromDate = function(n, type) {
 		if (tm < m || (tm == m && td < d))
 			--age;
 		return age > 0 ? age : 0;
-	} else {
+	} else if (type == 2) {
 		if (y != ty) {
-			return y+'年'+deal(m)+'月'+deal(d)+'日';
+			return y+'年'+global.deal(m)+'月'+global.deal(d)+'日';
 		} else if (m != tm || d - td > 2) {
-			return deal(m)+'月'+deal(d)+'日';
+			return global.deal(m+1)+'月'+global.deal(d)+'日';
 		} else {
 			if (d == td) {
 				return '今天';
@@ -230,6 +242,8 @@ global.getFromDate = function(n, type) {
 			}
 		}
 		return '未知';
+	} else if (type == 3) {
+		return y+'-'+global.deal(m+1)+'-'+global.deal(d);
 	}
 };
 
@@ -241,9 +255,17 @@ global.age = function(n) {
 };
 
 /**
+ * 传入日期，返回年月日格式
+ */
+global.date = function(n) {
+	return global.getFromDate(n, 3);
+};
+
+/**
  * 返回中文性别
  */
 global.sex = function(n) {
+	n = parseInt(n, 10);
 	return n ? '女' : '男';
 };
 

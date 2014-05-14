@@ -52,6 +52,8 @@ textarea {
 	padding: 4px 3px;
 }
 
+select,
+input[type="date"],
 input[type="text"],
 input[type="password"] {
 	margin: 0;
@@ -61,6 +63,8 @@ input[type="password"] {
 	padding: 3px;
 }
 
+select:hover,
+input[type="date"]:hover,
 input[type="text"]:hover,
 input[type="password"]:hover {
 	box-shadow: 0 0 3px #007AFF;
@@ -83,7 +87,7 @@ input[type="checkbox"]:hover {
 }
 
 .hide {
-	display: none;
+	display: none!important;
 }
 
 .center {
@@ -142,8 +146,8 @@ input[type="checkbox"]:hover {
 	background: linear-gradient(#D6E7F3, #fff);
 }
 
-.big_btn.disabled {
-	color: #777;
+.disabled {
+	color: #777!important;
 	box-shadow: none!important;
 	background: #eff3f6!important;
 }

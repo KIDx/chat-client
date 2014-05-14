@@ -121,8 +121,7 @@ $(document).ready(function(){
  */
 $(document).ready(function(){
 	//头像、昵称、签名
-	$avatar.attr('src', SRC['left'] = global.getImgSrc(u.img, u.imgFormat));
-	$avatar.show();
+	Show($avatar.attr('src', SRC['left'] = global.getImgSrc(u.img, u.imgFormat)));
 	$nick.text(u.nick);
 	if (u.signature)
 		$sig.text(u.signature);
@@ -136,7 +135,7 @@ $(document).ready(function(){
 		video.initiator = true;
 		socket.json.send({type: 7, to: u.name});
 	});
-	$camera.show();
+	Show($camera);
 
 	//显示对方在线状态
 	if (win.onlinestatus)
@@ -169,8 +168,8 @@ function showAlert(info) {
 $(document).ready(function(){
 	//是否被邀请视频聊天
 	if (win.video == 1) {
-		$hisshow.hide();
-		$video.show();
+		Hide($hisshow);
+		Show($video);
 	} else if (win.video == 2) {
 		showAlert('对方取消了视频请求');
 	}
@@ -242,14 +241,14 @@ $(document).ready(function(){
 					break;
 				}
 				case 7: {
-					$hisshow.hide();
-					$video.show();
+					Hide($hisshow);
+					Show($video);
 					showAlert('对方正在和您视频，注意警惕视频诈骗，勿轻信汇款信息。');
 					break;
 				}
 				case 8: {
-					$video.hide();
-					$hisshow.show();
+					Hide($video);
+					Show($hisshow);
 					showAlert('对方取消了视频请求');
 					break;
 				}
@@ -275,6 +274,10 @@ $(document).ready(function(){
 					}
 					break;
 				}
+				case 12: {
+					$nick.text(d.msg);
+					break;
+				}
 				default: break;
 			}
 		});
@@ -298,16 +301,16 @@ $(document).ready(function(){
 		var $show_smiley = $('#show_smiley')
 		,	$smiley = $('#smiley');
 		$show_smiley.click(function(){
-			$smiley.show();
+			Show($smiley);
 			$smiley.focus();
 		});
 		$smiley.blur(function(){
-			$smiley.hide();
+			Hide($smiley);
 		});
 		for (var i = 1; i <= 67; i++)
 			$smiley.append(global.img('img/smiley/'+i+'.gif', null, 'img-hover avatar'));
 		$smiley.find('img').click(function(){
-			$smiley.hide();
+			Hide($smiley);
 			E2.append(global.img($(this).attr('src')));
 		});
 	});
@@ -319,15 +322,15 @@ var $accept = $('#accept')
 
 $(document).ready(function(){
 	$accept.click(function(){
-		$video.hide();
-		$hisshow.show();
+		Hide($video);
+		Show($hisshow);
 		win.accepted = true;
 		openVideo();
 		socket.json.send({type: 9, to: u.name, msg: true});
 	});
 	$reject.click(function(){
-		$video.hide();
-		$hisshow.show();
+		Hide($video);
+		Show($hisshow);
 		socket.json.send({type: 9, to: u.name, msg: false});
 	});
 });

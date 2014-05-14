@@ -1,0 +1,41 @@
+
+#content {
+	position: absolute;
+	background: rgba(255,255,255,.9);
+	height: 250px;
+	padding: 10px 0;
+}
+
+input {
+	width: 180px;
+}
+
+select {
+	width: 187px;
+	background: #fff;
+}
+
+table {
+	margin-left: 10px;
+}
+
+th {
+	text-align: right;
+}
+
+th, td {
+	padding: 5px 8px;
+	height: 28px;
+}
+
+td > span {
+	-webkit-user-select: auto;
+}
+
+#foot {
+	height: 40px;
+}
+
+#foot .btn {
+	margin: 6px 10px;
+}

@@ -69,8 +69,28 @@ function CreateHint(content) {
  * 元素插入信息并显示
  */
 function ShowAnimate($p, txt) {
-	if (txt) $p.text(txt);
-	$p.stop().fadeIn();
+	if ($p) {
+		if (txt) $p.text(txt);
+		$p.stop().fadeIn();
+	}
+}
+
+/**
+ * 显示指定的dom元素
+ */
+function Show($p) {
+	if ($p) {
+		$p.removeClass('hide');
+	}
+}
+
+/**
+ * 隐藏指定的dom元素
+ */
+function Hide($p) {
+	if ($p) {
+		$p.addClass('hide');
+	}
 }
 
 /**
