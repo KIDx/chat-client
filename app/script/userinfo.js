@@ -6,6 +6,7 @@ var win = GetWindow()
 
 $(document).ready(function(){
 	BuildFrame(['close', 'minimize'], win);
+	BindAlert();
 });
 
 var $top = $('#top span')
@@ -13,7 +14,19 @@ var $top = $('#top span')
 ,	$edit = $('#edit')
 ,	$save = $('#save')
 ,	$input = $('input,select')
-,	$option = $('select option');
+,	$option = $('select option')
+,	$alert = $('.alert')
+,	$info = $('#info')
+,	alertTimeout;
+
+function showAlert(info) {
+	clearTimeout(alertTimeout);
+	$info.text(info);
+	$alert.stop().fadeIn();
+	alertTimeout = setTimeout(function(){
+		$alert.stop().fadeOut();
+	}, 3000);
+}
 
 function display(u) {
 	$.each($span, function(i, p){
@@ -81,6 +94,22 @@ $(document).ready(function(){
 					data[field] = $(p).val();
 				}
 			});
+			$info.removeClass('green').addClass('error-text');
+			if (!data.nick) {
+				showAlert('昵称不能为空');
+				$save.removeClass('disabled');
+				return false;
+			}
+			if (data.nick.length > 24) {
+				showAlert('昵称不能超过24个字符(一个汉字相当于2个字符)');
+				$save.removeClass('disabled');
+				return false;
+			}
+			if (!data.birthday) {
+				showAlert('生日不能为空');
+				$save.removeClass('disabled');
+				return false;
+			}
 			socket.emit('changeInfo', data, function(res){
 				Hide($save);
 				Show($edit);
@@ -94,9 +123,10 @@ $(document).ready(function(){
 				Show($span);
 				$save.removeClass('disabled');
 				if (res) {
-					CreateHint('保存成功！');
+					$info.removeClass('error-text').addClass('green');
+					showAlert('保存成功');
 				} else {
-					CreateHint('系统错误，请稍后重试！');
+					showAlert('系统错误，请稍后重试');
 				}
 			});
 		});

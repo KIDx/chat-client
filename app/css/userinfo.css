@@ -3,7 +3,7 @@
 	position: absolute;
 	background: rgba(255,255,255,.9);
 	height: 250px;
-	padding: 10px 0;
+	padding: 20px 0 10px 0;
 }
 
 input {
@@ -38,4 +38,12 @@ td > span {
 
 #foot .btn {
 	margin: 6px 10px;
+}
+
+.alert {
+	text-align: left;
+}
+
+#info {
+	margin-left: 5px;
 }

@@ -81,6 +81,7 @@ function ShowAnimate($p, txt) {
 function Show($p) {
 	if ($p) {
 		$p.removeClass('hide');
+		$p.show();
 	}
 }
 
@@ -90,6 +91,7 @@ function Show($p) {
 function Hide($p) {
 	if ($p) {
 		$p.addClass('hide');
+		$p.hide();
 	}
 }
 

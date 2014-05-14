@@ -87,7 +87,7 @@ input[type="checkbox"]:hover {
 }
 
 .hide {
-	display: none!important;
+	display: none;
 }
 
 .center {
@@ -117,6 +117,10 @@ input[type="checkbox"]:hover {
 
 .red {
 	color: red;
+}
+
+.green {
+	color: green;
 }
 
 .bold {

@@ -143,7 +143,7 @@ global.win_option = {
 		toolbar 	: false,
 		position 	: 'center',
 		width 		: 350,
-		height 		: 356,
+		height 		: 366,
 		resizable 	: false,
 		show 		: false
 	}
