@@ -9,12 +9,17 @@ $(document).ready(function(){
 var socket = global.socket
 ,	user = global.session.user;
 
+var $users = $('#users')
+,	$query = $('#query')
+,	$search = $('#search')
+,	$warning = $('#warning');
+
 function buildUser(u) {
 	var html = '<div class="user_box">';
 	html += global.img(global.getImgSrc(u.img, u.imgFormat), null, 'img_60x60 fl');
 	html += '<div class="info">';
 	html += '<div>' + u.nick + '</div>';
-	html += '<div><span class="text_small gray"><img class="sex" src="img/' + (u.sex ? 'fe' : '') + 'male.png"> ' + '广东 佛山' + '</span></div>';
+	html += '<div><span class="text_small gray"><img class="sex" src="img/' + (u.sex ? 'fe' : '') + 'male.png"> ' + (u.city || '未知') + '</span></div>';
 	html += '<div class="add" id="' + u.name + '"><b>+</b> 好友</div></div></div>';
 	html += '</div>';
 	$users.append(html);
@@ -27,26 +32,25 @@ function buildUser(u) {
 	});
 }
 
-var $users = $('#users');
-
-function getUser(page) {
-	$.ajax({
-		type: 'POST',
-		url: global.server + '/find',
-		dataType: 'json',
-		data: {
-			page: page
-		},
-		timeout: 5000
-	})
-	.fail()
-	.done(function(users){
-		if (users) {
-			$.map(users, buildUser);
-		}
-	});
-}
-
 $(document).ready(function(){
-	getUser(1);
+	$search.click(function(){
+		if ($(this).hasClass('disabled')) {
+			return false;
+		}
+		$search.addClass('disabled');
+		socket.emit('find', {query: $query.val()}, function(users){
+			$users.html('');
+			if (users && users.length) {
+				Hide($warning);
+				for (var i = 0; i < users.length; i++) {
+					buildUser(users[i]);
+				}
+			} else {
+				Show($warning);
+			}
+			$search.removeClass('disabled');
+		});
+	});
+	BtnTrigger($query, $search);
+	$search.click();
 });

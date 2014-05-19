@@ -8,10 +8,17 @@
 	</head>
 	<body>
 		<div id="top">
-			<span class="header text_light">查找</span>
+			<span class="header text_light">查找用户</span>
+			<div id="tool">
+				<input id="query" type="text" placeholder="请输入帐号 / 昵称 / 关键字">
+				<button id="search" class="big_btn">查找</button>
+			</div>
 		</div>
 		<div id="content">
 			<div id="users"></div>
+			<div id="warning" class="hide">
+				<img src="img/warning.png"> 没有找到符合搜索条件的用户
+			</div>
 		</div>
 		<script src="script/jquery.js"></script>
 		<script src="script/global.js"></script>

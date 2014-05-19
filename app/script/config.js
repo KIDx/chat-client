@@ -7,8 +7,8 @@
 /**
  * 服务器地址
  */
-//global.server = 'http://172.22.27.1:5000';
-global.server = 'http://192.168.191.5:3000';
+global.server = 'http://172.22.27.1:5000';
+//global.server = 'http://localhost:3000';
 
 /**
  * 视频通话服务器地址
