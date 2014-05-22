@@ -67,29 +67,45 @@ var win = GetWindow()
 ,	video;
 
 /**
+ * 退出聊天窗口
+ */
+$(document).ready(function(){
+	win.on('close', function(){
+		if (video) {
+			video.close();
+		}
+		win.close(true);
+	});
+});
+
+/**
  * 打开视频聊天窗口
  */
 function openVideo() {
+	if (video) {
+		video.close();
+	}
 	video = NewWindow('videochat');
-	win.video = true;
-	video.accepted = win.accepted;
-	video.rejected = win.rejected;
-	video.parent = win;
+	win.videoOpened = true;
 	video.username = u.name;
 	video.nick = u.nick;
 	video.tx = win.x + win.width + 5; video.ty = win.y;
+	video.pid = win.pid;
 	video.on('closed', function(){
-		if (win.accepted) {
-			win.accepted = win.rejected = false;
-			socket.json.send({type: 10, to: u.name});
-		} else if (win.rejected) {
-			win.rejected = false;
-		} else {
-			socket.json.send({type: 8, to: u.name});
-		}
 		$camera.removeClass('disabled');
 		video = null;
-		win.video = false;
+		win.videoOpened = false;
+	});
+}
+
+/**
+ * 获取本地视频流
+ */
+function getLocalStream(cb) {
+	navigator.webkitGetUserMedia({audio: true, video: true}, function(stream){
+		return cb(null, stream);
+	}, function(err){
+		return cb(err, null);
 	});
 }
 
@@ -117,6 +133,23 @@ $(document).ready(function(){
 });
 
 /**
+ * 聊天窗口顶部的消息显示
+ */
+var	$alert = $('.alert')
+,	$info = $('#info')
+,	alertTimeout;
+
+function showAlert(info) {
+	$alert.hide();
+	clearTimeout(alertTimeout);
+	$info.text(info);
+	$alert.stop().fadeIn();
+	alertTimeout = setTimeout(function(){
+		$alert.stop().fadeOut();
+	}, 8000);
+}
+
+/**
  * 界面初始化2
  */
 $(document).ready(function(){
@@ -131,9 +164,17 @@ $(document).ready(function(){
 		if ($camera.hasClass('disabled'))
 			return false;
 		$camera.addClass('disabled');
-		openVideo();
-		video.initiator = true;
-		socket.json.send({type: 7, to: u.name});
+		getLocalStream(function(err, stream){
+			if (err) {
+				showAlert('检测不到摄像头，无法发起视频聊天');
+				console.log(err);
+				$camera.removeClass('disabled');
+				return ;
+			}
+			openVideo();
+			video.stream = stream;
+			video.initiator = true;
+		});
 	});
 	Show($camera);
 
@@ -147,20 +188,8 @@ function buildTimer(p) {
 	return html;
 }
 
-var $hisshow = $('#hisshow')
-,	$video = $('#video')
-,	$alert = $('.alert')
-,	$info = $('#info')
-,	alertTimeout;
-
-function showAlert(info) {
-	clearTimeout(alertTimeout);
-	$info.text(info);
-	$alert.stop().fadeIn();
-	alertTimeout = setTimeout(function(){
-		$alert.stop().fadeOut();
-	}, 8000);
-}
+var $hisshow = $('#hisshow')	//对方的QQ秀
+,	$video = $('#video');		//接受或拒绝视频聊天的交互界面
 
 /**
  * 界面初始化3
@@ -209,7 +238,7 @@ $(document).ready(function(){
 		});
 
 		//消息响应
-		ListenMessage(win, function (d) {
+		ListenMessage(win, function(d){
 			switch(d.type) {
 				case 0: {
 					if (d.msg) $avatar.removeClass('img-gray');
@@ -243,34 +272,31 @@ $(document).ready(function(){
 				case 7: {
 					Hide($hisshow);
 					Show($video);
+					win.pid = d.msg;
 					showAlert('对方正在和您视频，注意警惕视频诈骗，勿轻信汇款信息。');
 					break;
 				}
 				case 8: {
-					Hide($video);
-					Show($hisshow);
-					showAlert('对方取消了视频请求');
+					if (video) {
+						video.isPassive = true;
+						video.close();
+						showAlert('对方中断了视频聊天');
+					} else {
+						Hide($video);
+						Show($hisshow);
+						showAlert('对方取消了视频请求');
+					}
 					break;
 				}
 				case 9: {
 					if (video) {
 						if (d.msg) {
-							win.accepted = true;
-							PostMessage(video, {type: 9, myagree: false});
+							PostMessage(video, {type: 9, pid: d.msg});
 						} else {
-							win.rejected = true;
+							video.isPassive = true;
 							video.close();
 							showAlert('对方拒绝了您的视频请求');
 						}
-					} else {
-						socket.json.send({type: 8, to: d.from});
-					}
-					break;
-				}
-				case 10: {
-					if (video) {
-						video.close();
-						showAlert('对方中断了视频聊天');
 					}
 					break;
 				}
@@ -324,13 +350,20 @@ $(document).ready(function(){
 	$accept.click(function(){
 		Hide($video);
 		Show($hisshow);
-		win.accepted = true;
-		openVideo();
-		socket.json.send({type: 9, to: u.name, msg: true});
+		getLocalStream(function(err, stream){
+			if (err) {
+				showAlert('检测不到摄像头，无法发起视频聊天');
+				console.log(err);
+				$camera.removeClass('disabled');
+				return ;
+			}
+			openVideo();
+			video.stream = stream;
+		});
 	});
 	$reject.click(function(){
 		Hide($video);
 		Show($hisshow);
-		socket.json.send({type: 9, to: u.name, msg: false});
+		socket.json.send({type: 9, to: u.name, msg: null});
 	});
 });

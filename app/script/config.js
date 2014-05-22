@@ -8,12 +8,14 @@
  * 服务器地址
  */
 global.server = 'http://172.22.27.1:5000';
-//global.server = 'http://localhost:3000';
+//global.server = 'http://localhost:5000';
 
 /**
  * 视频通话服务器地址
  */
-//global.webrtcServer = 'http://192.168.1.106:8080';
+global.webrtcServer = 'http://172.22.27.1:8888';
+global.host = '172.22.27.1';
+global.port = '9000';
 
 /**
  * 存储当前会话信息

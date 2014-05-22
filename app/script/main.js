@@ -16,9 +16,9 @@ var win = GetWindow()
  *	5: 他拒绝我添加为好友
  *	6: 他同意我添加为好友
  *	7: 对方发起视频聊天
- *	8: 对方取消视频聊天
+ *	8: 对方中断或取消了视频聊天
  *	9: 对方同意或拒绝我方发起的视频聊天
- * 10: 对方中断了视频聊天
+ * 10: 未占用
  * 11: 对方与我断绝好友关系
  * 12: 他的个性签名昵称
  */
@@ -56,9 +56,6 @@ function createWindow(id, name, isChat) {
 			wins[id] = NewWindow(name);
 			wins[id].opened = true;
 			wins[id].on('closed', function(){
-				if (wins[id].video) {
-					socket.json.send({type: 10, to: wins[id].user.name});
-				}
 				wins[id] = null;
 			});
 		};
@@ -334,8 +331,6 @@ function start() {
 				case 8: {
 					var id = d.from;
 					if (wins[id]) {
-						if (d.type == 8)
-							wins[id].closeVideo = true;
 						PostMessage(wins[id], {type: d.type});
 					} else {
 						addNotice(id);
@@ -346,10 +341,6 @@ function start() {
 				}
 				case 9: {
 					PostMessage(wins[d.from], {type: 9, msg: d.msg});
-					break;
-				}
-				case 10: {
-					PostMessage(wins[d.from], {type: 10});
 					break;
 				}
 				case 11: {

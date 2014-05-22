@@ -8,12 +8,12 @@
 	overflow: visible;
 }
 
-#remote {
+#container {
 	height: 400px;
 	background: url(../img/remote.png);
 }
 
-#remote video {
+#remote {
 	width: 100%;
 }
 

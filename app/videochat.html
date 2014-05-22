@@ -5,7 +5,7 @@
         <title>CC猫</title>
         <link type="text/css" href="css/style.css" rel="stylesheet">
         <link type="text/css" href="css/videochat.css" rel="stylesheet">
-        <script src="script/simplewebrtc.bundle.js"></script>
+        <script src="script/peer.js"></script>
         <script src="script/socket.io.js"></script>
     </head>
     <body>
@@ -14,7 +14,9 @@
         </div>
         <div id="content">
             <video id="local" autoplay="autoplay" poster="img/local.png" class="hide"></video>
-            <div id="remote"></div>
+            <div id="container">
+                <video id="remote" autoplay="autoplay"></video>
+            </div>
         </div>
         <div id="bg">
             <span id="info">正在等待对方接受邀请...</span>
