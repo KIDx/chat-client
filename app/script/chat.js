@@ -116,7 +116,7 @@ $(document).ready(function(){
 	BindAlert();
 
 	//关闭, 最大化, 最小化
-	BuildFrame(['close', 'maximize', 'minimize'], win);
+	BuildFrame(['close', 'minimize'], win);
 
 	//改变窗口大小时的响应
 	var h = win.height;

@@ -15,7 +15,7 @@ $(document).ready(function(){
 		win.close(true);
 	});
 	win.moveTo(win.tx, win.ty);
-	BuildFrame(['close', 'maximize', 'minimize'], win);
+	BuildFrame(['close', 'minimize'], win);
 });
 
 $(document).ready(function(){
