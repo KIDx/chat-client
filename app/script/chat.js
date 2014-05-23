@@ -207,7 +207,14 @@ $(document).ready(function(){
 	$T1.load(function() {
 		var E1 = new Editor('T1', false, {'cursor': 'default'})
 		,	E2 = new Editor('T2', true);
-		E2.event('keydown', hotKeyHandle);
+		E2.event('keydown', function(e){
+			hotKeyHandle(e);
+			if (e.ctrlKey) {
+				if (e.keyCode == '13') {
+					$send.click();
+				}
+			}
+		});
 		win.on('focus', function(){
 			E2.focus();
 		});
