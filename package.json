@@ -1,12 +1,15 @@
 {
+  "name": "Chat Cat",
   "main": "app/login.html",
-  "name": "CC",
+  "version": "0.1.0",
   "keywords": [
-    "CC",
+    "IM",
     "chat",
-    "chatting"
+    "chatting",
+    "video chat"
   ],
   "window": {
+    "icon": "app/avatar/jpg/01.jpg",
     "frame": false,
     "toolbar": false,
     "position": "center",
