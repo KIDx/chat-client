@@ -26,6 +26,11 @@ $(document).ready(function(){
 	,	$remote = $('#remote')
 	,	$bg = $('#bg');
 
+	function resume() {
+		$info.text('');
+		$bg.stop().animate({'bottom': '-38px'});
+	}
+
 	if (win.stream) {
 		$local.prop('muted', true).prop('src', URL.createObjectURL(win.stream)).fadeIn();
 	}
@@ -51,8 +56,7 @@ $(document).ready(function(){
 						var call = peer.call(d.pid, win.stream);
 						call.on('stream', function(remoteStream){
 							$remote.prop('src', URL.createObjectURL(remoteStream));
-							//$info.text('');
-							//$bg.stop().animate({'bottom': '-38px'});
+							resume();
 						});
 						break;
 					}
@@ -77,6 +81,7 @@ $(document).ready(function(){
 				call.answer(win.stream);
 				call.on('stream', function(remoteStream){
 					$remote.prop('src', URL.createObjectURL(remoteStream));
+					resume();
 				});
 			}
 		});
